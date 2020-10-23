@@ -7,6 +7,9 @@ import java.util.concurrent.FutureTask;
 
 import static java.lang.Thread.sleep;
 
+/**
+ * 使用 lambda 表达式实现 @{link Callable}
+ */
 @Slf4j
 public class CallableLambdaTutorial {
 

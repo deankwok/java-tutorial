@@ -9,12 +9,29 @@ public final class LambdaException {
         void accept(T t) throws E;
     }
 
+    @FunctionalInterface
+    public interface ThrowingConsumerVoid<E extends Exception> {
+        void accept() throws E;
+    }
+
     public static <T> Consumer<T> consumerWrapper(
             ThrowingConsumer<T, Exception> throwingConsumer) {
 
         return i -> {
             try {
                 throwingConsumer.accept(i);
+            } catch (Exception ex) {
+                throw new RuntimeException(ex);
+            }
+        };
+    }
+
+    public static <T>Consumer<T> consumerWrapperVoid(
+            ThrowingConsumerVoid<Exception> throwingConsumer) {
+
+        return (i) -> {
+            try {
+                throwingConsumer.accept();
             } catch (Exception ex) {
                 throw new RuntimeException(ex);
             }
